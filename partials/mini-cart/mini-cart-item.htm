@@ -1,0 +1,17 @@
+{% set obOffer = obCartPosition.item %}
+{% set obProduct = obOffer.product %}
+
+<li class='minicart--item'>
+    <div class='placeholder'>
+        {% if obProduct.preview_image is not empty %}
+            <img src="{{ obProduct.preview_image.path }}" itemprop="image" alt="{{ obProduct.preview_image.description }}" title="{{ obProduct.preview_image.title }}">
+        {% else %}
+        <img src="https://dummyimage.com/100x100/cccccc/fff&text=Themarket" itemprop="image">
+        {% endif %}
+    </div>
+    <a href="{{ obProduct.getPageUrl('product-page') }}"><h1 class='title' itemprop="name">{{ obProduct.name }}</h1></a>
+    <p class='price' data-price="{{ obCartPosition.price_value }}">{{ obCartPosition.price }} ({{ obCartPosition.quantity }} шт.)</p>
+    <p class='remove'>
+        <a href='#' class="remove-from-cart-btn" data-product-id="{{ obProduct.id }}"><i class='fa fa-trash-o'></i> Удалить из корзины</a>
+    </p>
+</li>

@@ -1,0 +1,41 @@
+{% if obNewProductList.isNotEmpty() %}
+    <div class="card mx-2 rounded-0 mb-2">
+        <div class="card-body">
+            <div class="card-title text-dark">
+                <h5>Новинки</h5>
+            </div>
+        </div>
+    </div>
+    <div id="carouselNewProducts" class="carousel slide text-center" data-mdb-ride="carousel">
+        <div class="carousel-inner">
+            {% for obProductBatchList in obNewProductList|slice(0, 9)|batch(3) %}
+                {% if obProductBatchList|length == 3 %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <div class="row justify-content-center">
+                            {% for obProduct in obProductBatchList %}
+                                <div class="col-lg-4 col-md-12">
+                                    {% partial 'catalog/product-card.htm' obProduct=obProduct no_col=true %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="carousel-indicators">
+            {% for obProductBatchList in obNewProductList|slice(0, 9)|batch(3) %}
+                <button type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide-to="{% loop.index0 %}" {% if loops.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {% loop.index %}"></button>
+            {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center mb-4">
+            <button class="carousel-control-prev position-relative" type="button" data-mdb-target="#carouselNewProducts" data-mdb-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next position-relative" type="button" data-mdb-target="#carouselNewProducts" data-mdb-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+{% endif %}

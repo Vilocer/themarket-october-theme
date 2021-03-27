@@ -1,0 +1,80 @@
+<form id="filter-form" action="{{ url_current() }}" method="GET">
+    {% if sort != 'new' %}
+    <input type="hidden" name="sort" value="{{ sort }}">
+    {% endif %}
+    <input type="hidden" name="page" value="{{ iPage }}">
+    <div class="card rounded-0 mb-3">
+        <div class="card-body">
+            <h5 class="card-title text-dark">
+                Фильтры
+            </h5>
+        </div>
+    </div>
+    {% set brandList = BrandList.make().active() %}
+    {% if brandList is not empty %}
+        <div class="card rounded-0">
+            <div class="card-body">
+                <h5 class="card-title text-dark">
+                    Бренды
+                </h5>
+                <div class="card-text text-muted">
+                    Выберите бренд:
+                </div>
+            </div>
+        </div>
+        <div class="categories mb-2">
+            <div class="list-group list-group-flush">
+                {% for brand in brandList %}
+                    {% set obList = ProductList.make().brand(brand.id) %}
+                    {% if obList.count > 0 %}
+                    <label class="list-group-item">
+                        <input name="brand-{{ brand.id }}" class="form-check-input me-1 mb-2" type="checkbox" {% if brand.id in brands_ids %}checked{% endif %}>
+                        {{ brand.name }}
+                        <span class="badge bg-primary rounded-pill category-counter">{{ obList.count }}</span>
+                    </label>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% set obCategoryList = CategoryList.make().tree() %}
+    {% if obCategoryList.isNotEmpty() %}
+        <div class="card rounded-0">
+            <div class="card-body">
+                <h5 class="card-title text-dark">
+                    Категории
+                </h5>
+                <div class="card-text text-muted">
+                    Выберите категорию:
+                </div>
+            </div>
+        </div>
+        <div class="categories mb-2">
+            <div class="list-group list-group-flush">
+                {% for obCategory in obCategoryList if obCategory.product_count > 0 %}
+                    <label class="list-group-item">
+                        <input id="categoryInput" name="category-{{ obCategory.id }}" class="category-input form-check-input me-1 mb-2" type="checkbox" {% if obCategory.id in categories_ids %}checked{% endif %}>
+                        {{ obCategory.name }}
+                        <span class="badge bg-primary rounded-pill category-counter">{{ obCategory.product_count }}</span>
+                        {% if obCategory.children.isNotEmpty() %}
+                            <div class="list-group list-group-flush">
+                                {% for obCategory in obCategory.children if obCategory.product_count > 0 %}
+                                <label class="list-group-item my-1">
+                                    <input id="categoryInputChild" name="category-{{ obCategory.id }}" type="checkbox" class="form-check-input me-1" {% if obCategory.id in categories_ids %}checked{% endif %}>
+                                    {{ obCategory.name }}
+                                    <span class="badge bg-primary rounded-pill category-counter">{{ obCategory.product_count }}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="card rounded-0 mb-4">
+        <div class="card-body mx-auto">
+            <button id="filter-form-submit" class="btn btn-outline-warning text-center ripple-surface ripple-surface-dark"><strong>Применить</strong></button>
+        </div>
+    </div>
+</form>

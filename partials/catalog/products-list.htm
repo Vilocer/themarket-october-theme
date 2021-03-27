@@ -1,0 +1,13 @@
+<div class="row justify-content-center mb-4">
+    {% if arProductList is not empty %}
+        {% for obProduct in arProductList %}
+            {% partial 'catalog/product-card.htm' obProduct=obProduct %}
+        {% endfor %}
+    {% else %}
+    <div class="card col-md-6">
+        <div class="card-body text-center">
+            <h5>Пусто. <span><a href="{{ 'catalog'|page }}"> Открыть каталог</a></span></h5>
+        </div>
+    </div>
+    {% endif %}
+</div>

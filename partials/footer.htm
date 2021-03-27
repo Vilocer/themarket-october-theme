@@ -1,0 +1,46 @@
+description = "Нижний колонтитул"
+
+[viewBag]
+
+[staticMenu menu]
+code = "menu"
+
+[staticMenu links]
+code = "links"
+
+[contenteditor]
+file = "header/brand.htm"
+==
+<footer class="page-footer footer text-center text-white bg-warning">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-6 mb-4 text-start">
+                {% component 'contenteditor' file='footer/footer-title.htm' fixture='h5' toold='bold,italic' class='text-uppercase' %}
+                {% component 'contenteditor' file='footer/footer-text.htm' fixture='p' toold='bold,italic' class='' %}
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5 class="text-uppercase">
+                    {{ menu.menuName }}
+                </h5>
+                <ul class="list-unstyled mb-0">
+                    {% for item in menu.menuItems %}
+                    <li><a href="{{ item.url }}" class="link-light" {% if item.viewBag.isExternal  %}target="_blank"{% endif %}>{{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h5 class="text-uppercase">
+                    {{ links.menuName }}
+                </h5>
+                <ul class="list-unstyled mb-0">
+                    {% for item in links.menuItems %}
+                        <li><a href="{{ item.url }}" class="link-light" {% if item.viewBag.isExternal  %}target="_blank"{% endif %}>{{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.1)">
+        {% component 'contenteditor' file='footer/footer-copyright.htm' fixture='span' toold='bold,italic,link' class='footer-copyright' %}
+    </div>
+</footer>

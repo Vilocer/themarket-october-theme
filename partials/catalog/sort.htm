@@ -1,0 +1,21 @@
+<div class="card mb-3 rounded-0">
+    <div class="card-body">
+        <div class="card-title">
+            <h5 class="float-start m-auto products-count text-dark">
+                Товары - {{ obProductList.count() }}
+            </h5>
+            <h5 class="float-end show-on-load">
+                <form method="GET" action="{{ url_current() }}" class="sort-form">
+                    {% if get('brands') %}<input type="hidden" name="brands" value="{{ get('brands') }}">{% endif %}
+                    {% if get('categories') %}<input type="hidden" name="categories" value="{{ get('categories') }}">{% endif %}
+                    <input type="hidden" name="page" value="{{ iPage }}">
+                    <select name='sort' class="select-send-form cs-select cs-skin-slide text-dark" aria-label="Сортировать по:">
+                        <option value="new" {% if sort == 'new' %}selected data-class="cs-selected"{% endif %}>Новинки</option>
+                        <option value="price|asc" {% if sort == 'price|asc' %}selected data-class="cs-selected"{% endif %}>Сначала дешевые</option>
+                        <option value="price|desc" {% if sort == 'price|desc' %}selected data-class="cs-selected"{% endif %}>Сначала дорогие</option>
+                    </select>
+                </form>
+            </h5>
+        </div>
+    </div>
+</div>

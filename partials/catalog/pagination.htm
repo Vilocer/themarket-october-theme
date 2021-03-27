@@ -1,0 +1,9 @@
+{% if arPaginationList is not empty %}
+    <nav aria-label="Pagination">
+        <ul class="pagination justify-content-center">
+            {% for arPagination in arPaginationList %}
+                <li class="page-item {{ arPagination.class }}"><a href="{{ url_current() }}?page={{ arPagination.value }}{% if sort != 'new'%}&sort={{ sort }}{% endif %}&categories={{ get('categories') }}&brands={{ get('brands') }}" class="page-link" data-code="{{ arPagination.code }}">{{ arPagination.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endif %}

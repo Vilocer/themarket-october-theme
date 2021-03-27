@@ -1,0 +1,127 @@
+title = "Каталог"
+url = "/catalog"
+layout = "default"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[ProductList]
+sorting = "no"
+
+[CategoryList]
+
+[BrandList]
+
+[PromoBlockList]
+sorting = "default"
+
+[Pagination]
+count_per_page = 15
+pagination_limit = 5
+active_class = "active"
+button_list = "first,first-more,main,last-more,last"
+first_button_name = "First"
+first_button_limit = 3
+first_button_number = 1
+first-more_button_name = "..."
+first-more_button_limit = 4
+prev_button_name = "Prev"
+prev_button_limit = 1
+prev-more_button_name = "..."
+prev-more_button_limit = 1
+next-more_button_name = "..."
+next-more_button_limit = 1
+next_button_name = "Next"
+next_button_limit = 1
+last-more_button_name = "..."
+last-more_button_limit = 4
+last_button_name = "Last"
+last_button_limit = 3
+last_button_number = 1
+
+[CategoryPage]
+slug = "{{ :slug }}"
+slug_required = 0
+smart_url_check = 0
+has_wildcard = 0
+skip_error = 0
+==
+{% set obCategory = CategoryPage.get() %}
+
+
+{% set sort = input('sort') %}
+{% if not sort %}
+    {% set sort = 'new' %}
+{% endif %}
+
+{% set brands_ids  = get('brands')|split(',') %}
+{% set categories_ids  = get('categories')|split(',') %}
+
+{% set obProductList = ProductList.make().active().sort(sort) %}
+
+{% set filteredByBrandProductList = [] %}
+{% set filteredProductList = [] %}
+
+{% for product in obProductList %}
+    {% for id in brands_ids if id %}
+        {% if product.brand.id == id and product not in filteredByBrandProductList %}
+            {% set filteredByBrandProductList = filteredByBrandProductList|merge([product]) %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+{% if not filteredByBrandProductList|length %}
+    {% set filteredByBrandProductList = obProductList %}
+{% endif %}
+
+{% for product in filteredByBrandProductList %}
+    {% for id in categories_ids if id %}
+        {% if id == product.category.id and product not in filteredProductList %}
+            {% set filteredProductList = filteredProductList|merge([product]) %}
+        {% endif %}
+        {% for additional_cateogry_id in product.additional_category_id %}
+            {% if id == additional_cateogry_id and product not in filteredProductList %}
+                {% set filteredProductList = filteredProductList|merge([product]) %}
+            {% endif %}
+        {% endfor %}
+        {% for cat in CategoryList.make().active().tree() %}
+            {% if cat.children.isNotEmpty() %}
+                {% for childCat in cat.children %}
+                    {% if id == cat.id %}
+                        {% if childCat.id == product.category.id and product not in filteredProductList %}
+                            {% set filteredProductList = filteredProductList|merge([product]) %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% set filteredProductList = filteredByBrandProductList %}
+    {% endfor %}
+{% endfor %}
+
+{% set product_ids = [] %}
+
+{% for product in filteredProductList %}
+{% set product_ids = product_ids|merge([product.id]) %}
+{% endfor %}
+
+{% set obProductList = ProductList.make(product_ids).active() %}
+
+{% set iPage = Pagination.getPageFromRequest() %}
+{% set iCount = obProductList.count() %}
+{% set arPaginationList = Pagination.get(iPage, iCount) %}
+
+
+{% set arProductList = obProductList.page(iPage, Pagination.getCountPerPage()) %}
+
+<div class="row mb-4">
+    <div class="col-lg-2 col-md-3">
+        {% partial 'catalog/filters.htm' BrandList=BrandList CategoryList=CategoryList ProductList=ProductList sort=sort iPage=iPage brands_ids=brands_ids categories_ids=categories_ids %}
+    </div>
+    <div class="col-lg-10 col-md-9">
+        {% partial 'catalog/sort.htm' obProductList=obProductList iPage=iPage sort=sort %}
+        {% partial 'catalog/products-list.htm' arProductList=obProductList %}
+        {% partial 'catalog/pagination.htm' arPaginationList=arPaginationList sort=sort %}
+    </div>
+</div>

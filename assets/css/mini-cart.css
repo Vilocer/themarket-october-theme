@@ -1,0 +1,126 @@
+.minicart {
+  max-height: 80vh;
+  overflow-x: auto;
+  
+  position: absolute;
+  top: 0;
+  right: 10%;
+  width: 288px;
+  height: auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0px 30px 130px -8px rgba(0, 0, 0, 0.4);
+}
+.minicart input {
+  margin-top: 20px;
+  width: 100%;
+  height: 43px;
+  color: #ffa900 !important;
+  background: white;
+  border: 2px solid #ffa900;
+  outline: none;
+
+  transition: 0.1s linear;
+}
+.minicart input:hover, .minicart--open:hover {
+  cursor: pointer;
+  color: #fff !important;
+  background: #ffa900;
+  text-decoration: none !important;
+}
+
+.minicart--open {
+  text-decoration: none;
+}
+
+.minicart--item-container {
+  margin-bottom: 10px;
+  font-size: 1em;
+}
+
+.minicart hr {
+  margin-bottom: 20px;
+}
+
+.minicart--item {
+  margin-bottom: 10px;
+  width: 100%;
+  float: left;
+}
+.minicart--item > * {
+  margin-bottom: 5px;
+}
+.minicart--item .title {
+  font-size: 1.2em;
+  font-weight: 600;
+
+  color: #262626 !important;
+}
+.minicart--item .material {
+  font-size: 0.8em;
+}
+.minicart--item .size {
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+.minicart--item .price {
+  margin-bottom: 10px;
+}
+.minicart--item .remove {
+  font-size: 0.8em;
+}
+
+.minicart--subtotal {
+  font-size: 1.2em;
+  margin: 20px 0;
+}
+
+.minicart--subtotal-title {
+  float: left;
+
+}
+
+.minicart--subtotal-amount {
+  float: right;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.minicart .placeholder {
+  float: left;
+  margin-right: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+.minicart .placeholder img {
+  width: 100%;
+  max-height: 100%;
+}
+
+.minicart a {
+  color: black;
+  text-decoration: none;
+}
+.minicart a:hover {
+  text-decoration: underline;
+}
+
+
+@media screen and (max-width: 992px) {
+  .dropdown-menu {
+    position: fixed !important;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: transparent;
+  }
+  .minicart {
+    position: relative;
+    margin: 60px auto;
+    right: auto;
+  }
+}

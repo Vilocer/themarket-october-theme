@@ -1,0 +1,63 @@
+.cart-position hr {
+    margin: 1rem auto;
+}
+
+.cart-preview-image {
+    width: 150px;
+    height: 150px;
+}
+
+.cart-preview-image img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+}
+
+.position-title:hover {
+    text-decoration: underline;
+}
+
+.cart-position .remove a:hover{
+    color: #666 !important;
+}
+
+.order-page-btn:hover {
+    color: #fff !important;
+    background-color: #ffa900 !important;
+}
+
+
+/* Input Type Number */
+.input-number {
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #E5E8EE;
+    box-sizing: border-box;
+    border-radius: 6px;
+    color: #424348;
+    font-size: 14px;
+    text-align: center;
+    width: calc(33px * 3);
+}
+
+.input-number__input {
+    background: #E5E8EE;
+    width: 32px;
+    height: 22px;
+    border: none;
+    padding: 8px;
+    text-align: center;
+}
+
+.input-number__minus,
+.input-number__plus {
+    width: 32px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}

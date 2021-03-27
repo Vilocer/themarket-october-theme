@@ -1,0 +1,57 @@
+{% set obShippingTypeList = ShippingTypeList.make().active().sort() %}
+{% set obActiveShippingType = obShippingTypeList.first() %}
+
+{% set obPaymentMethodList = PaymentMethodList.make().active().sort() %}
+{% set obActivePaymentMethod = obPaymentMethodList.first() %}
+
+{% set obCartPositionList = Cart.get(obActiveShippingType, obActivePaymentMethod) %}
+
+{% if obCartPositionList.isNotEmpty() %}
+<div class="col-md-8">
+    <div class="card rounded-0 p-3">
+        <div class="card-body">
+            <div class="card-title mb-4 clearfix">
+                <h4 class="float-start text-dark">Корзина</h4>
+                <a href="#" class="float-end clear-cart-btn text-dark"><small>Очистить корзину</small></a>
+            </div>
+            <div class="cart-text">
+                <ul class="list-unstyled">
+                    {% for obCartPosition in obCartPositionList %}
+                        <li>{% partial 'cart/cart-position.htm' obCartPosition=obCartPosition %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="card rounded-0">
+        <div class="card-body">
+            <div class="card-title clearfix">
+                <h4 class="float-start text-dark">
+                    Итого
+                </h4>
+            </div>
+            <div class="card-text text-dark text-center">
+                <div class="display-5 text-center">
+                    {{ obCartPositionList.getTotalPrice() }} {{ obCartPositionList.getCurrency() }}
+                </div>
+                <hr>
+                <a href="{{ 'order'|page }}" class="order-page-btn my-2 btn btn-outline-warning btn-lg text-center rounded-0">Перейти к оформлению</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="col-md-12">
+    <div class="card rounded-0">
+        <div class="card-body">
+            <div class="cart-text">
+                <div class="text-center w-100 p-5">
+                    <h4>Корзина пуста. <span><a href="{{ 'catalog'|page }}">Перейти в каталог.</a></span></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

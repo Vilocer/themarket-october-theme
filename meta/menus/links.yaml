@@ -1,0 +1,29 @@
+items:
+    -
+        title: 'Мы Вконтакте'
+        type: url
+        url: 'https://vk.com/cold.siemens_38'
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '1'
+    -
+        title: 'Наш GitHub'
+        type: url
+        url: 'https://github.com/Vilocer'
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '1'
+    -
+        title: 'Наш Instagram'
+        type: url
+        url: 'https://www.instagram.com/cold.siemens_d/'
+        code: ''
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '1'
+name: Ссылки

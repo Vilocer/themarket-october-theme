@@ -1,0 +1,33 @@
+[Cart]
+
+[viewBag]
+==
+<div class='minicart'>
+    {% set obCartPositionList = Cart.get() %}
+    {% if obCartPositionList.isNotEmpty() %}
+        <div class='minicart--item-container'>
+            Товаров в корзине: <span class='minicart--item-count' style='font-weight: 600'>{{ obCartPositionList.count() }}</span>
+        </div>
+        <div class="minicart--item-container mb-0">
+            <a href="{{ 'cart'|page }}" class="text-muted"><small>Перейти в корзину</small></a>
+        </div>
+        <hr class="mt-2">
+        <ul class="list-unstyled">
+            {% for obCartPosition in obCartPositionList %}
+                {% partial 'mini-cart/mini-cart-item.htm' obCartPosition=obCartPosition %}
+            {% endfor %}
+        </ul>
+        <hr>
+        <div class='minicart--subtotal'>
+            <p class='minicart--subtotal-title'>Итого</p>
+            <p class='minicart--subtotal-amount'>{{ obCartPositionList.getTotalPrice() }} {{ obCartPositionList.getCurrency() }}</p>
+        </div>
+        <a href="{{ 'cart'|page }}" class="btn btn-outline-warning text-warning rounded-0 w-100 text-center btn-lg minicart--open">Открыть корзину</a>
+    {% else %}
+        <div class='minicart--item-container'>
+            <div class="text-center">
+                Корзина пуста.
+            </div>
+        </div>
+    {% endif %}
+</div>

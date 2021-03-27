@@ -1,0 +1,32 @@
+{% set obOffer = obCartPosition.item %}
+{% set obProduct = obOffer.product %}
+
+<div class="cart-position row">
+    <div class="col-md-4 cart-preview-image p-1 mb-4">
+        {% if obProduct.preview_image is not empty %}
+            <img src="{{ obProduct.preview_image.path }}" itemprop="image" alt="{{ obProduct.preview_image.description }}" title="{{ obProduct.preview_image.title }}">
+        {% else %}
+            <img src="https://dummyimage.com/200x200/cccccc/fff&text=Themarket">
+        {% endif %}
+    </div>
+    <div class="col-md-4 my-md-auto my-2">
+        <a href="{{ obProduct.getPageUrl('product-page') }}" class="text-dark position-title"><h4 itemprop="name">{{ obProduct.name }}</h4></a>
+        {% if obProduct.preview_text is not empty %}
+            <div itemprop="description" class="text-muted">
+                <small>{{ obProduct.preview_text }}</small>
+            </div>
+        {% endif %}
+        <div class="input-number mt-3">
+            <div class="input-number__minus">-</div>
+            <input class="input-number__input change-quantity-input" data-product-id="{{ obProduct.id }}" type="text" pattern="^[0-9]+$" value="{{ obCartPosition.quantity }}" max="{{ obOffer.quantity }}" min="1" data-max="{{ obOffer.quantity }}" data-min="1">
+            <div class="input-number__plus">+</div>
+        </div>
+    </div>
+    <div class="col-md-5 text-md-end my-auto text-center">
+        <p class="remove">
+            <a href="#" class="remove-from-cart-page-btn text-dark" data-product-id="{{ obProduct.id }}"><i class="fa fa-trash-o"></i><small>Удалить из корзины</small></a>
+        </p>
+        <p data-price="{{ obCartPosition.price_value }}" class="position-price text-dark display-6">{{ obCartPosition.price }} <span class="h5 font-weight-normal"><small>({{ obCartPosition.quantity }} шт.)</small></span></p>
+    </div>
+    <hr>
+</div>

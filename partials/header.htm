@@ -1,0 +1,34 @@
+description = "Шапка"
+
+[viewBag]
+
+[staticMenu menu]
+code = "menu"
+
+[contenteditor]
+file = "header/brand.htm"
+==
+<header class="sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light text-dark shadow-2-strong">
+        <div class="container">
+            <a href="/" class="navbar-brand text-warning">{% component 'contenteditor' fixture='span' tools='bold,italic' %}</a>
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navBarNav" aria-controls="navBarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navBarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% for item in menu.menuItems %}
+                        <li class="nav-item">
+                            <a href="{{ item.url }}" class="nav-link {% if this.page.title == item.title %}active{% endif %}">
+                                {{ item.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="navbar-nav nav-flex-icons">
+                    {% partial 'mini-cart/mini-cart-dropdown.htm' %}
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

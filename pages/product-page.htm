@@ -1,0 +1,21 @@
+title = "Страница продукта"
+url = "/catalog/:slug"
+layout = "default"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[ProductPage]
+slug = "{{ :slug }}"
+slug_required = 1
+smart_url_check = 0
+skip_error = 0
+
+[SeoBlogPost]
+post = "ProductPage"
+==
+{% set obProduct = ProductPage.get() %}
+
+<div class="row mb-4 justify-content-center" data-id="{{ obProduct.id }}" itemscope itemtype="http://schema.org/Product">
+    {% partial 'catalog/product-detail.htm' obProduct=obProduct %}
+</div>

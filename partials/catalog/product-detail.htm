@@ -1,0 +1,43 @@
+<div class="col-md-6 mb-4">
+    <div id="carouselExampleIndicators" class="carousel slide carousel-dark" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            {% for image in obProduct.images %}
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide 1"></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner">
+            {% for image in obProduct.images %}
+            <div class="carousel-item {% if loop.first %}active{% endif %}"><img src="{{ image.path }}" class="d-block w-100 product-image" title="{{ image.title }}" alt="{{ image.description }}"/></div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+</div>
+<div class="col-md-6">
+    <div class="card p-1 shadow-3 rounded-0">
+        <div class="card-body p-4">
+            <div class="card-title">
+                <a href="#" class="link-dark"><h3 itemprop="name">{{ obProduct.name }}</h3></a>
+            </div>
+            <div class="card-price">
+                {% set obOffer = obProduct.offer.first() %}
+                <h4 class="text-warning">
+                    <span itemprop="price">{{ obOffer.price }}</span>
+                    <span itemprop="priceCurrency" content="{{ obOffer.currency_code }}">{{ obOffer.currency }}</span>
+                </h4>
+            </div>
+            <div class="card-text mb-3 text-center text-wrap">
+                <p class="text-muted text-start w-100">{{ obProduct.description|raw }}
+                <hr>
+                <a href="#" class="btn btn-outline-warning text-center add-to-cart-btn" data-product-id="{{ obProduct.id }}" data-mdb-ripple-color="dark">Добавить в корзину</a>
+            </div>
+        </div>
+    </div>
+</div>

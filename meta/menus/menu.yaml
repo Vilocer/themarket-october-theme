@@ -1,0 +1,37 @@
+items:
+    -
+        title: Главная
+        nesting: null
+        type: cms-page
+        url: null
+        code: ''
+        reference: home
+        cmsPage: null
+        replace: null
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Каталог
+        type: cms-page
+        code: catalog
+        reference: catalog
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+    -
+        title: Меню
+        nesting: null
+        type: all-static-pages
+        url: null
+        code: ''
+        reference: null
+        cmsPage: null
+        replace: 1
+        viewBag:
+            isHidden: '0'
+            cssClass: ''
+            isExternal: '0'
+name: Меню

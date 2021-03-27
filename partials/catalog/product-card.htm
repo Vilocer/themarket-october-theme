@@ -1,0 +1,28 @@
+<div class="card p-0 shadow-3 {% if no_col %}m-1{% else %}col-xxl-3 col-md-4{% endif %} m-2 rounded-0" itemscope itemtype="http://schema.org/Product">
+    <a href="{{ obProduct.getPageUrl('product-page') }}">
+        <div class="bg-image hover-zoom card-img-top img-fluid rounded-0">
+            {% if obProduct.preview_image %}
+                <img src="{{ obProduct.preview_image.path }}"  itemprop="image" class="w-100" alt="{{ obProduct.preview_image.description }}" title="{{ obProduct.preview_image.title }}"/>
+            {% else %}
+                <img src="https://dummyimage.com/624x542/fff/333333.jpg&text=Themarket"  itemprop="image" class="w-100" alt="{{ obProduct.title }}" title="{{ obProduct.title }}"/>
+            {% endif %}
+        </div>
+    </a>
+    <div class="card-body p-4">
+        <div class="card-title">
+            <a href="{{ obProduct.getPageUrl('product-page') }}" class="link-dark"><h5 itemprop="name">{{ obProduct.name }}</h5></a>
+        </div>
+        <div class="card-price">
+            {% set obOffer = obProduct.offer.first() %}
+            <h5 class="text-warning">
+                <span itemprop="price">{{ obOffer.price }}</span>
+                <span itemprop="priceCurrency" content="{{ obOffer.currency_code }}">{{ obOffer.currency }}</span>
+            </h5>
+        </div>
+        <div class="card-text mb-3 text-center">
+            <p class="text-muted text-start" itemprop="description">{{ obProduct.preview_text }} <a href="{{ obProduct.getPageUrl('product-page') }}">Подробнее...</a></p>
+            <hr>
+            <a href="#" class="btn btn-outline-warning text-center add-to-cart-btn" data-mdb-ripple-color="dark" data-product-id="{{ obProduct.id }}">Добавить в корзину</a>
+        </div>
+    </div>
+</div>

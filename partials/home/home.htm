@@ -1,0 +1,2 @@
+{% set obNewProductList = ProductList.make().active().sort('new') %}
+{% partial 'home/new-products.htm' obNewProductList=obNewProductList %}
